@@ -9,7 +9,7 @@ export const escapeSpecialChars = (str: string): string =>
         '"': "&quot;",
         "<": "&lt;",
         ">": "&gt;",
-      }[match])
+      }[match]),
   );
 
 /**
@@ -26,7 +26,7 @@ export const htmlToElement = (html: string): Element => {
  */
 export const element = (strings: TemplateStringsArray, ...values: ReadonlyArray<any>): Element => {
   const htmlString = strings.reduce(
-    (result, str, i) => result + escapeSpecialChars(String(values[i - 1])) + str
+    (result, str, i) => result + escapeSpecialChars(String(values[i - 1])) + str,
   );
   return htmlToElement(htmlString);
 };

@@ -33,7 +33,7 @@ export class App {
         new TodoItemModel({
           title: inputElement.value,
           completed: false,
-        })
+        }),
       );
       inputElement.value = "";
     });
