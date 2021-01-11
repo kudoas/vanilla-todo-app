@@ -12,10 +12,11 @@ test("convert string to html", () => {
   expect(expected).toStrictEqual(toBe);
 });
 
-test("convert html string to DOM fNode", () => {
-  const newElement = element`<p>foo</p>`;
-  const expected = document.body.appendChild(newElement);
-  const p = document.createElement("p");
-  p.innerText = "23";
-  expect(expected).toStrictEqual(p);
+// innerTextとtextContentの違い
+// https://developer.mozilla.org/ja/docs/Web/API/HTMLElement/innerText
+test("convert html string to DOM Node", () => {
+  const expected = element`<li>foo</li>`;
+  const toBe = document.createElement("li");
+  toBe.textContent = "foo";
+  expect(expected).toStrictEqual(toBe);
 });

@@ -33,6 +33,7 @@ export const element = (strings: TemplateStringsArray, ...values: ReadonlyArray<
 
 /**
  * コンテナ要素の中身をbodyElementで上書きする
+ * TODO: 変更差分だけのパッチ処理にしたい
  */
 export const render = (bodyElement: Element, containerElement: Element) => {
   containerElement.innerHTML = "";
