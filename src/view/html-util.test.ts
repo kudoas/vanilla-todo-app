@@ -12,6 +12,10 @@ test("convert string to html", () => {
   expect(expected).toStrictEqual(toBe);
 });
 
-test("convert html string to DOM Node", () => {
-  const expected = element`<p>${23}</p>`;
+test("convert html string to DOM fNode", () => {
+  const newElement = element`<p>foo</p>`;
+  const expected = document.body.appendChild(newElement);
+  const p = document.createElement("p");
+  p.innerText = "23";
+  expect(expected).toStrictEqual(p);
 });
