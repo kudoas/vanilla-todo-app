@@ -1,9 +1,6 @@
 // observer pattern
 // ディスパッチ側：emitメソッドは、指定されたイベント名に登録済みの全てのコールバック関数を呼び出す
 // リッスン側：addEventListenerメソッドは、指定したイベント名に任意のコールバック関数を登録できる
-
-import { isJSDocCallbackTag } from "typescript";
-
 export class EventEmitter {
   private _listeners: Map<string, Set<any>>;
 
