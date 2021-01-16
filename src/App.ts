@@ -26,6 +26,14 @@ export class App {
     this.todoListModel.deleteTodo({ id });
   }
 
+  handleSubmit(event: Event, inputElement: HTMLInputElement) {
+    event.preventDefault();
+    if (inputElement.value !== "") {
+      this.handleAdd(inputElement.value.trim());
+    }
+    inputElement.value = "";
+  }
+
   mount() {
     const formElement = document.getElementById("js-form");
     const inputElement = document.getElementById("js-form-input") as HTMLInputElement;
@@ -50,11 +58,7 @@ export class App {
 
     // フォームを送信したら、新しいTodoItemModelを追加する
     formElement.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (inputElement.value !== "") {
-        this.handleAdd(inputElement.value.trim());
-      }
-      inputElement.value = "";
+      this.handleSubmit(event, inputElement);
     });
   }
 }
