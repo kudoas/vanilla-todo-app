@@ -1,23 +1,10 @@
 import { element } from "./html-util";
 import { TodoItemModel } from "../model/TodoItemModel";
-
-type OnUpdateArgs = {
-  id: number;
-  completed: boolean;
-};
-
-type OnDeleteArgs = {
-  id: number;
-};
-
-interface CreateElementArgs {
-  onUpdateTodo: (args: OnUpdateArgs) => void;
-  onDeleteTodo: (args: OnDeleteArgs) => void;
-}
+import { CreateElementHandler } from "./types";
 
 export class TodoItemView {
   /** `todoItem`に対するTodoアイテムのHTML要素を作成して返す */
-  createElement(todoItem: TodoItemModel, props: CreateElementArgs): Element {
+  createElement(todoItem: TodoItemModel, props: CreateElementHandler): Element {
     const { onDeleteTodo, onUpdateTodo } = props;
     const todoItemElement = todoItem.completed
       ? element`
