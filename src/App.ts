@@ -26,39 +26,41 @@ export class App {
     this.todoListModel.deleteTodo({ id });
   }
 
-  handleSubmit(event: Event, inputElement: HTMLInputElement) {
+  handleSubmit(event: Event) {
     event.preventDefault();
+    const inputElement = document.getElementById("js-form-input") as HTMLInputElement;
     if (inputElement.value !== "") {
       this.handleAdd(inputElement.value.trim());
     }
     inputElement.value = "";
   }
 
-  mount() {
-    const formElement = document.getElementById("js-form");
-    const inputElement = document.getElementById("js-form-input") as HTMLInputElement;
+  handleChange() {
+    const todoItems = this.todoListModel.getTodoItems();
+    const todoListView = new TodoListView();
     const containerElement = document.getElementById("js-todo-list");
     const todoItemCountElement = document.getElementById("js-todo-count");
+    const todoListElement = todoListView.createElement(todoItems, {
+      onUpdateTodo: ({ id, completed }) => {
+        this.handleUpdateChecked({ id, completed });
+      },
+      onDeleteTodo: ({ id }) => {
+        this.handleDelete({ id });
+      },
+    });
+    render(todoListElement, containerElement);
+    todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+  }
 
-    // TodoListModelの状態が更新されたら表示を更新する
+  mount() {
+    const formElement = document.getElementById("js-form");
+
     this.todoListModel.onChange(() => {
-      const todoItems = this.todoListModel.getTodoItems();
-      const todoListView = new TodoListView();
-      const todoListElement = todoListView.createElement(todoItems, {
-        onUpdateTodo: ({ id, completed }) => {
-          this.handleUpdateChecked({ id, completed });
-        },
-        onDeleteTodo: ({ id }) => {
-          this.handleDelete({ id });
-        },
-      });
-      render(todoListElement, containerElement);
-      todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+      this.handleChange();
     });
 
-    // フォームを送信したら、新しいTodoItemModelを追加する
     formElement.addEventListener("submit", (event) => {
-      this.handleSubmit(event, inputElement);
+      this.handleSubmit(event);
     });
   }
 }
