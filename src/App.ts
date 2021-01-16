@@ -10,7 +10,7 @@ export class App {
 
   mount() {
     const formElement = document.getElementById("js-form");
-    const inputElement = <HTMLInputElement>document.getElementById("js-form-input");
+    const inputElement = document.getElementById("js-form-input") as HTMLInputElement;
     const containerElement = document.getElementById("js-todo-list");
     const todoItemCountElement = document.getElementById("js-todo-count");
 
