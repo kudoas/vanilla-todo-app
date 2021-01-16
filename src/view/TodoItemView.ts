@@ -17,8 +17,9 @@ interface CreateElementArgs {
 
 export class TodoItemView {
   /** `todoItem`に対するTodoアイテムのHTML要素を作成して返す */
-  createElement(todoItem: TodoItemModel, funcs: CreateElementArgs): Element {
-    const todoItemElement = todoItem.id
+  createElement(todoItem: TodoItemModel, props: CreateElementArgs): Element {
+    const { onDeleteTodo, onUpdateTodo } = props;
+    const todoItemElement = todoItem.completed
       ? element`
         <li><input type="checkbox" class="checkbox" checked>
           <s>${todoItem.title}</s>
@@ -31,14 +32,14 @@ export class TodoItemView {
         </li>`;
     const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
     inputCheckboxElement.addEventListener("change", () => {
-      funcs.onUpdateTodo({
+      onUpdateTodo({
         id: todoItem.id,
         completed: !todoItem.completed,
       });
     });
     const deleteButtonElement = todoItemElement.querySelector(".delete");
     deleteButtonElement.addEventListener("click", () => {
-      funcs.onDeleteTodo({
+      onDeleteTodo({
         id: todoItem.id,
       });
     });

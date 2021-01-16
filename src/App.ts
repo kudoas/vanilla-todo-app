@@ -1,6 +1,7 @@
 import { TodoListModel } from "./model/TodoListModel";
 import { TodoItemModel } from "./model/TodoItemModel";
-import { element, render } from "./view/html-util";
+import { TodoListView } from "./view/TodoListView";
+import { render } from "./view/html-util";
 
 export class App {
   public todoListModel: TodoListModel;
@@ -16,32 +17,15 @@ export class App {
 
     // TodoListModelの状態が更新されたら表示を更新する
     this.todoListModel.onChange(() => {
-      const todoListElement = element`<ul/>`;
       const todoItems = this.todoListModel.getTodoItems();
-      todoItems.forEach((item) => {
-        const todoItemElement = item.completed
-          ? element`<li><input type="checkbox" class="checkbox" checked>
-                <s>${item.title}</s>
-                <button class="delete">x</button>
-            </li>`
-          : element`<li><input type="checkbox" class="checkbox">
-                ${item.title}
-                <button class="delete">x</button>
-            </li>`;
-        const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
-        inputCheckboxElement.addEventListener("change", () => {
-          this.todoListModel.updateCheckedTodo({
-            id: item.id,
-            completed: !item.completed,
-          });
-        });
-        const deleteButtonElement = todoItemElement.querySelector(".delete");
-        deleteButtonElement.addEventListener("click", () => {
-          this.todoListModel.deleteTodo({
-            id: item.id,
-          });
-        });
-        todoListElement.appendChild(todoItemElement);
+      const todoListView = new TodoListView();
+      const todoListElement = todoListView.createElement(todoItems, {
+        onUpdateTodo: ({ id, completed }) => {
+          this.todoListModel.updateCheckedTodo({ id, completed });
+        },
+        onDeleteTodo: ({ id }) => {
+          this.todoListModel.deleteTodo({ id });
+        },
       });
       render(todoListElement, containerElement);
       todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
