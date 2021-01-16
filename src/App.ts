@@ -51,7 +51,9 @@ export class App {
     // フォームを送信したら、新しいTodoItemModelを追加する
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.handleAdd(inputElement.value);
+      if (inputElement.value !== "") {
+        this.handleAdd(inputElement.value.trim());
+      }
       inputElement.value = "";
     });
   }
