@@ -1,6 +1,15 @@
 import { EventEmitter } from "../EventEmitter";
 import { TodoItemModel } from "./TodoItemModel";
 
+export type OnUpdateArgs = {
+  id: number;
+  completed: boolean;
+};
+
+export type OnDeleteArgs = {
+  id: number;
+};
+
 export class TodoListModel extends EventEmitter {
   public items: TodoItemModel[];
 
@@ -30,13 +39,15 @@ export class TodoListModel extends EventEmitter {
     this.emitChange();
   }
 
-  updateCheckedTodo({ id, completed }) {
+  updateCheckedTodo(props: OnUpdateArgs) {
+    const { id, completed } = props;
     const todoItem = this.items.find((todo) => todo.id === id);
     todoItem.completed = completed;
     this.emitChange();
   }
 
-  deleteTodo({ id }) {
+  deleteTodo(props: OnDeleteArgs) {
+    const { id } = props;
     this.items = this.items.filter((todo) => todo.id !== id);
     this.emitChange();
   }
