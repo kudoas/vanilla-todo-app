@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  db:
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: vanilla-todo-app-db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+
+  migration:
+    image: flyway/flyway
+    depends_on:
+      - db
+    container_name: vanilla-todo-app-migration
+    volumes:
+      - ./database/migration/schema:/flyway/sql
