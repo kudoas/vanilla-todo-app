@@ -1,0 +1,10 @@
+INSERT INTO todo VALUES ( 'title1', false );
+INSERT INTO todo VALUES ( 'title2', false );
+INSERT INTO todo VALUES ( 'title3', false );
+INSERT INTO todo VALUES ( 'title4', false );
+INSERT INTO todo VALUES ( 'title5', false );
+INSERT INTO todo VALUES ( 'title6', false );
+INSERT INTO todo VALUES ( 'title7', false );
+INSERT INTO todo VALUES ( 'title8', false );
+INSERT INTO todo VALUES ( 'title9', false );
+INSERT INTO todo VALUES ( 'title10', false );
