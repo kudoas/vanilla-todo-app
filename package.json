@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "parcel": "^1.12.4"
+    "mysql": "^2.18.1",
+    "parcel": "^1.12.4",
+    "typeorm": "^0.2.30"
   },
   "scripts": {
     "start": "parcel index.html",
