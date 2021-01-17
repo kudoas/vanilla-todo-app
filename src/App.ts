@@ -3,6 +3,7 @@ import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListView } from "./view/TodoListView";
 import { OnUpdateArgs, OnDeleteArgs } from "./view/types";
 import { render } from "./view/html-util";
+import { parseConfigFileTextToJson } from "typescript";
 
 interface Props {
   inputElement: HTMLInputElement;
@@ -69,5 +70,10 @@ export class App {
   mount() {
     this.todoListModel.onChange(this.handleChange);
     this.formElement.addEventListener("submit", this.handleSubmit);
+  }
+
+  unmount() {
+    this.todoListModel.offChange(this.handleChange);
+    this.formElement.removeEventListener("submit", this.handleSubmit);
   }
 }
