@@ -4,6 +4,13 @@ import { TodoListView } from "./view/TodoListView";
 import { OnUpdateArgs, OnDeleteArgs } from "./view/types";
 import { render } from "./view/html-util";
 
+interface Props {
+  inputElement: HTMLInputElement;
+  containerElement: HTMLElement;
+  todoItemCountElement: HTMLElement;
+  formElement: HTMLElement;
+}
+
 export class App {
   public todoListModel: TodoListModel;
   public todoListView: TodoListView;
@@ -11,13 +18,14 @@ export class App {
   public containerElement: HTMLElement;
   public todoItemCountElement: HTMLElement;
   public formElement: HTMLElement;
-  constructor() {
+  constructor(props: Props) {
+    const { inputElement, containerElement, todoItemCountElement, formElement } = props;
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
-    this.inputElement = document.getElementById("js-form-input") as HTMLInputElement;
-    this.containerElement = document.getElementById("js-todo-list");
-    this.todoItemCountElement = document.getElementById("js-todo-count");
-    this.formElement = document.getElementById("js-form");
+    this.inputElement = inputElement;
+    this.containerElement = containerElement;
+    this.todoItemCountElement = todoItemCountElement;
+    this.formElement = formElement;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
