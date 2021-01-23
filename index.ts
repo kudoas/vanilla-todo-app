@@ -1,4 +1,5 @@
 import { App } from "./src/App";
+import { connectDatabase } from "./src/db/db";
 
 const inputElement = document.getElementById("js-form-input") as HTMLInputElement;
 const containerElement = document.getElementById("js-todo-list");
@@ -13,6 +14,7 @@ const app = new App({
 });
 
 window.addEventListener("load", () => {
+  connectDatabase();
   app.mount();
 });
 window.addEventListener("unload", () => {

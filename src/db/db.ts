@@ -1,12 +1,17 @@
-import { createConnection, Connection } from "typeorm";
+import { createConnection } from "typeorm";
 
-const connection = createConnection({
-  type: "mysql",
-  host: "127.0.0.1",
-  port: 3306,
-  username: "root",
-  password: "password",
-  database: "app_db",
-})
-  .then((e) => console.log(e))
-  .catch((e) => console.log(e));
+export const connectDatabase = async () => {
+  try {
+    const connection = await createConnection({
+      type: "mysql",
+      host: "127.0.0.1",
+      port: 3306,
+      username: "root",
+      password: "password",
+      database: "app_db",
+    });
+    connection.connect();
+  } catch (err) {
+    console.log(err);
+  }
+};

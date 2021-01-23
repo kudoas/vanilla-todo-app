@@ -3,7 +3,6 @@ import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListView } from "./view/TodoListView";
 import { OnUpdateArgs, OnDeleteArgs } from "./view/types";
 import { render } from "./view/html-util";
-import { parseConfigFileTextToJson } from "typescript";
 
 interface Props {
   inputElement: HTMLInputElement;
